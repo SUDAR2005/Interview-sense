@@ -10,7 +10,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_community.vectorstores import Chroma
 from chromadb.config import Settings
-from langchain_core.prompts import PromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 from dotenv import load_dotenv
@@ -284,9 +284,11 @@ async def chat(chat_message: ChatMessage):
             google_api_key=os.getenv('GOOGLE_API_KEY')
         )
         
-        prompt_template = PromptTemplate(
-            input_variables=["context", "chat_history", "question"],
-            template=hr_prompt_template,
+        prompt_template = ChatPromptTemplate(
+            ('system', hr_prompt_template),
+            MessagesPlaceholder("context"),
+            MessagesPlaceholder("chat_history"),
+            MessagesPlaceholder("question")
         )
         
         # Build RAG chain
