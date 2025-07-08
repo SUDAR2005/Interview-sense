@@ -6,6 +6,7 @@ from routers.session import router as session_router
 from routers.chat import router as chat_router
 from routers.voice import router as voice_router
 from routers.utils import router as utils_router
+from routers.aptitude import router as aptitude_router
 
 # Load environment variables
 load_dotenv()
@@ -31,6 +32,7 @@ app.include_router(session_router)
 app.include_router(chat_router)
 app.include_router(voice_router)
 app.include_router(utils_router)
+app.include_router(aptitude_router)
 
 @app.get("/")
 async def root():

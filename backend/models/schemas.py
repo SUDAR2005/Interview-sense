@@ -28,3 +28,11 @@ class SessionInfo(BaseModel):
     created_at: datetime
     resume_uploaded: bool
     message_count: int
+class UploadTitle(BaseModel):
+    title: str
+    
+class AptitudeQuestion(BaseModel):
+    question: str
+    options: List[str]
+    answer: str
+    explanation: str

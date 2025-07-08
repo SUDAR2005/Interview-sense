@@ -6,7 +6,8 @@ function Home() {
   return (
     <>
       <Hero />
-      <CompanyList right={false}/>
+      
+      <CompanyList className="mt-18"/>
       {/* <CompanyList right={true}/> */}
     </>
   );

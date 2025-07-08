@@ -1,5 +1,4 @@
 # services/llm.py
-
 from langchain_google_genai import ChatGoogleGenerativeAI
 import os
 from dotenv import load_dotenv
@@ -34,3 +33,30 @@ Guidelines for your behavior:
 
 Response:
 """
+
+
+aptitude_prompt_template = """
+You are an excellent Aptitude trainer traing the students to prepare for their placemet. You can help them with questions of any topic
+they ask for.  Consider they give the topic as the input you have to generate 10 questions on that topic and give as JSON output.
+
+Input:
+{topic}
+Guidelines for your behavior:
+1. The question must be a mixture of easy, medium and hard level.
+2. Always provide only the resone in json format as. It is strict that only the fields in the examople should be there
+[
+    {{
+        question: "Question 1",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        answer: "answer",
+        explanation: "Explnation for the answer"
+    }},
+    {{
+        question: "Question 2,
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        answer: "answer",
+        explanation: "Explnation for the answer"
+    }}
+]
+"""
+

@@ -11,9 +11,9 @@ function About() {
           About
         </h1>
         <div className="justify-baseline">
-            The interview website will help as a crucial partner in the hiring process. It help the candidate to learn new things 
-            and prepare themselves for the placement process. The application has In-person interview chatbot to give you a realtime
-            interview experience, Aptitude question generator and Coding Question generator based on topic.
+            <span className="text-[#147fdc] hover:text-[#7883ff] hover: cursor-pointer">InterviewSense</span> will act as a prep partner in your interview preparation process.
+            It will help the candidates, learn new things and prepare themselves for the placement. The application has In-person interview chatbot to give you a realtime
+            interview experience, Aptitude question generator and Coding Question generator based on topic you desire to learn.
         </div>
       </div>
 

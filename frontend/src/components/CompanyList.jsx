@@ -1,43 +1,72 @@
-import React, { useState, useEffect, useRef } from "react";
-import companyData from "../../data/company.json";
-import CompanyBox from "../components/ComapanyBox";
-
-function CompanyList({ right }) {
+import react, {useState, useEffect} from 'react'
+import companyData from '../../data/company.json'
+import CompanyBox from './ComapanyBox'
+function CompanyList() {
   const [companies, setCompanies] = useState([]);
-  const scrollRef = useRef(null);
 
   useEffect(() => {
     setCompanies(companyData);
-    const scrollContainer = scrollRef.current;
-
-    const interval = setInterval(() => {
-      if (!scrollContainer) return;
-      scrollContainer.scrollBy({
-        left: right ? 1 : 2,
-        behavior: "smooth"
-      });
-    }, 20);
-
-    return () => clearInterval(interval);
-  }, [right]);
+  }, []);
 
   return (
-    <div
-      ref={scrollRef}
-      className="overflow-hidden whitespace-nowrap px-4 py-6 scroll-smooth"
-      style={{ maxWidth: "100%", whiteSpace: "nowrap" }}
-    >
-      <div className="flex gap-6 w-max">
-        {companies.map((company, index) => (
-          <CompanyBox
-            key={index}
-            name={company.name}
-            rating={company.rating}
-            description={company.description}
-            link={company.link}
-          />
-        ))}
+    <div className="bg-gray-50 py-8 mt-8">
+      <div className="container mx-auto px-4">        
+        <div className="relative overflow-hidden">
+          <div 
+            className="flex gap-4"
+            style={{
+              animation: 'infinite-scroll 25s linear infinite'
+            }}
+          >
+            {/* First set of companies */}
+            {companies.map((company, index) => (
+              <CompanyBox
+                key={`first-${index}`}
+                name={company.name}
+                rating={company.rating}
+                description={company.description}
+                link={company.link}
+              />
+            ))}
+
+            {companies.map((company, index) => (
+              <CompanyBox
+                key={`second-${index}`}
+                name={company.name}
+                rating={company.rating}
+                description={company.description}
+                link={company.link}
+              />
+            ))}
+            
+          </div>
+        </div>
       </div>
+      
+      <style>{`
+        @keyframes infinite-scroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+        
+        .line-clamp-1 {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      `}</style>
     </div>
   );
 }

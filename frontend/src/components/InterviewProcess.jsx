@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactFlow, { Controls, Background } from 'reactflow';
+import ReactFlow, { Controls, Background, EdgeText } from 'reactflow';
 import 'reactflow/dist/style.css';
 
 const nodeStyle = {
@@ -7,7 +7,7 @@ const nodeStyle = {
   height: 80,
   padding: 10,
   textAlign: 'center',
-  backgroundColor: '#0C2340',
+  backgroundColor: '#147fdc',
   color: 'white',
   borderRadius: 8,
   fontSize: 15,
