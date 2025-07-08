@@ -1,0 +1,122 @@
+[
+  {
+    "name": "EmbedUR",
+    "rating": 4.8,
+    "description": "AI driven solution providers for Edge Devices",
+    "link": "https://www.embedur.ai/"
+  },
+  {
+    "name": "Zoho",
+    "rating": 4.5,
+    "description": "Cloud software suite and SaaS applications",
+    "link": "https://www.zoho.com/"
+  },
+  {
+    "name": "Freshworks",
+    "rating": 4.6,
+    "description": "Customer engagement and CRM software solutions",
+    "link": "https://www.freshworks.com/"
+  },
+  {
+    "name": "Infosys",
+    "rating": 4.3,
+    "description": "Global leader in next-gen digital services and consulting",
+    "link": "https://www.infosys.com/"
+  },
+  {
+    "name": "TCS",
+    "rating": 4.4,
+    "description": "IT services, consulting and business solutions company",
+    "link": "https://www.tcs.com/"
+  },
+  {
+    "name": "Wipro",
+    "rating": 4.1,
+    "description": "Information technology, consulting and business process services",
+    "link": "https://www.wipro.com/"
+  },
+  {
+    "name": "Cognizant",
+    "rating": 4.2,
+    "description": "Modern IT and digital transformation solutions",
+    "link": "https://www.cognizant.com/"
+  },
+  {
+    "name": "HCLTech",
+    "rating": 4.3,
+    "description": "Global tech company delivering IT and engineering services",
+    "link": "https://www.hcltech.com/"
+  },
+  {
+    "name": "Mindtree",
+    "rating": 4.0,
+    "description": "Digital transformation and technology services",
+    "link": "https://www.mindtree.com/"
+  },
+  {
+    "name": "Tech Mahindra",
+    "rating": 4.2,
+    "description": "Business re-engineering and IT services",
+    "link": "https://www.techmahindra.com/"
+  },
+  {
+    "name": "IBM",
+    "rating": 4.4,
+    "description": "Cloud platform and cognitive solutions leader",
+    "link": "https://www.ibm.com/"
+  },
+  {
+    "name": "Capgemini",
+    "rating": 4.1,
+    "description": "Consulting, technology services and digital transformation",
+    "link": "https://www.capgemini.com/"
+  },
+  {
+    "name": "Oracle",
+    "rating": 4.5,
+    "description": "Cloud applications and enterprise software solutions",
+    "link": "https://www.oracle.com/"
+  },
+  {
+    "name": "Google",
+    "rating": 4.9,
+    "description": "Search engine, cloud, AI and software products",
+    "link": "https://www.google.com/"
+  },
+  {
+    "name": "Microsoft",
+    "rating": 4.8,
+    "description": "Cloud services, productivity tools and enterprise software",
+    "link": "https://www.microsoft.com/"
+  },
+  {
+    "name": "Amazon",
+    "rating": 4.7,
+    "description": "E-commerce and cloud computing giant",
+    "link": "https://www.amazon.in/"
+  },
+  {
+    "name": "Accenture",
+    "rating": 4.6,
+    "description": "Global consulting and professional services company",
+    "link": "https://www.accenture.com/"
+  },
+  {
+    "name": "LTI Mindtree",
+    "rating": 4.1,
+    "description": "Merged entity offering digital transformation services",
+    "link": "https://www.ltimindtree.com/"
+  },
+  {
+    "name": "Adobe",
+    "rating": 4.7,
+    "description": "Creative software, document management and cloud services",
+    "link": "https://www.adobe.com/"
+  },
+  {
+    "name": "Salesforce",
+    "rating": 4.6,
+    "description": "Customer relationship management (CRM) solutions",
+    "link": "https://www.salesforce.com/"
+  }
+]
