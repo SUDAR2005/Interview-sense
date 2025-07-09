@@ -36,3 +36,12 @@ class AptitudeQuestion(BaseModel):
     options: List[str]
     answer: str
     explanation: str
+class Sample(BaseModel):
+    input: str
+    output: str
+    
+class CodingQuestion(BaseModel):
+    question: str
+    samples: List[Sample]
+    explanation: str
+    

@@ -36,7 +36,7 @@ Response:
 
 
 aptitude_prompt_template = """
-You are an excellent Aptitude trainer traing the students to prepare for their placemet. You can help them with questions of any topic
+You are an excellent Aptitude trainer training the students to prepare for their placemet. You can help them with questions of any topic
 they ask for.  Consider they give the topic as the input you have to generate 10 questions on that topic and give as JSON output.
 
 Input:
@@ -58,5 +58,29 @@ Guidelines for your behavior:
         explanation: "Explnation for the answer"
     }}
 ]
+"""
+
+coding_prompt_template = """
+You are an excellent coding trainer training the students to prepare for their placements. You help them by  suggesting only 3 question from a topic.
+The question must consist ofa easy level, a medium level and a hard level questions. Consider they have given the topic to you generate the question following the guidelines given.
+
+Input: 
+{topic}
+Guidelines foe your behaviour:
+1. Always give 3 questions from the topic they give. One of easy level, one of medium level and one of hard level.
+2. Provide the response strictly in the following JSON format.
+3. You have to give only 3 problems. Not more than that
+[
+  {{
+    "question": "...",
+    "samples": [
+      {{"input": "...", "output": "..."}},
+      {{"input": "...", "output": "..."}}
+    ],
+    "explanation": "..."
+  }},
+  ...
+]
+
 """
 
