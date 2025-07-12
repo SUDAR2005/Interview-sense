@@ -6,7 +6,7 @@ function Aptitude(){
     // const [display, setDisplay] = useState(false)
     let reference = useRef(null)
     function handleChange(){
-        if(ref){
+        if(reference){
             setTopic(reference.current.value)
             console.log(reference.current.value)
         }
