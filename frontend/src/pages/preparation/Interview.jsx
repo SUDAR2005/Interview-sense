@@ -9,11 +9,11 @@ import {
   FaFileAlt,
   FaPlay,
   FaExclamationCircle,
-  FaCheckCircle,
   FaSpinner,
   FaWaveSquare,
+  FaCheckCircle
 } from "react-icons/fa";
-import {TbFlagCancel }from "react-icons/tb";
+import UploadStatusComponent from "../../components/UploadStatus";
 
 const API_BASE_URL = "http://localhost:8000";
 
@@ -22,10 +22,8 @@ function Interview() {
   const [chatHistory, setChatHistory] = useState([]);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadStatus, setUploadStatus] = useState("");
+  const [uploadStatus, setUploadStatus] = useState(null); // { ok: true/false, message: string }
   const [isRecording, setIsRecording] = useState(false);
-  const [voiceTranscription, setVoiceTranscription] = useState("");
-  const [voiceResponse, setVoiceResponse] = useState("");
   const [error, setError] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
@@ -35,7 +33,8 @@ function Interview() {
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatHistory]);
+    setError("");
+  }, [chatHistory, currentSessionId]);
 
   const generateUUID = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -47,7 +46,7 @@ function Interview() {
 
   const uploadResume = async (file) => {
     if (!file) {
-      setUploadStatus("Please select a PDF file to upload.");
+      setUploadStatus({ ok: false, message: "Please select a PDF file to upload." });
       return;
     }
 
@@ -69,14 +68,14 @@ function Interview() {
         const result = await response.json();
         setCurrentSessionId(result.session_id);
         setChatHistory([]);
-        setUploadStatus(`Resume uploaded successfully! Session ID: ${result.session_id.slice(0, 8)}...`);
+        setUploadStatus({ ok: true, message: `Resume uploaded successfully! Session ID: ${result.session_id.slice(0, 8)}...` });
       } else {
         const errorText = await response.text();
-        setUploadStatus(`Error uploading resume: ${errorText}`);
+        setUploadStatus({ ok: false, message: `Error uploading resume: ${errorText}` });
       }
     } catch (error) {
-      console.log(`Error: ${error.message}`)
-      setUploadStatus(null);
+      console.log(`Error: ${error.message}`);
+      setUploadStatus({ ok: false, message: `Error: ${error.message}` });
     } finally {
       setIsLoading(false);
     }
@@ -168,13 +167,10 @@ function Interview() {
 
     recognition.onstart = () => {
       setIsRecording(true);
-      setVoiceTranscription("");
-      setVoiceResponse("");
     };
 
     recognition.onresult = async (event) => {
       const transcript = event.results[0][0].transcript;
-      setVoiceTranscription(transcript);
 
       if (!currentSessionId) {
         setError("Please upload a resume first.");
@@ -192,7 +188,6 @@ function Interview() {
             timestamp: new Date(),
             isVoice: true
           }]);
-          setVoiceResponse(botResponse);
         }
       } catch (error) {
         setError(`Error: ${error.message}`);
@@ -219,13 +214,12 @@ function Interview() {
     recognitionRef.current?.stop();
     setIsRecording(false);
   };
-  //  from-blue-400 via-white to-blue-200 
+
   return (
-    <div className="min-h-screen bg-gradient-to-brp-4 mt-8">
+    <div className="min-h-screen bg-gradient-to-br p-4 mt-8">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-bold  mb-4 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
             AI Interview Assistant
           </h1>
           <p className="text-xl text-gray-700 opacity-90">
@@ -233,7 +227,6 @@ function Interview() {
           </p>
         </div>
 
-        {/* Error/Success Messages */}
         {error && (
           <div className="mb-6 p-4 bg-red-100/80 border border-red-300/50 rounded-xl backdrop-blur-sm">
             <div className="flex items-center text-red-700">
@@ -243,7 +236,6 @@ function Interview() {
           </div>
         )}
 
-        {/* Upload Section */}
         <div className="mb-8 p-6 bg-white/70 backdrop-blur-sm rounded-2xl border border-blue-200/30 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold text-gray-800 flex items-center">
@@ -257,7 +249,7 @@ function Interview() {
               </div>
             )}
           </div>
-          
+
           <input
             ref={fileInputRef}
             type="file"
@@ -265,14 +257,13 @@ function Interview() {
             onChange={(e) => uploadResume(e.target.files[0])}
             className="hidden"
           />
-          
+
           <div className="flex items-center gap-4">
             <button
               onClick={() => fileInputRef.current.click()}
               disabled={isLoading}
               className="group relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <span className="relative flex items-center">
                 {isLoading ? (
                   <FaSpinner className="animate-spin mr-2" />
@@ -282,35 +273,21 @@ function Interview() {
                 {isLoading ? "Uploading..." : "Choose PDF File"}
               </span>
             </button>
-            
+
             <button
               onClick={startInterview}
               disabled={!currentSessionId || isLoading}
               className="group relative overflow-hidden bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <span className="relative flex items-center">
                 <FaPlay className="mr-2" />
                 Start Interview
               </span>
             </button>
           </div>
-          {uploadStatus ? (
-            <div className="mt-4 p-3 bg-green-100/80 border border-green-300/50 rounded-lg">
-              <p className="text-green-700 flex items-center">
-                <FaCheckCircle className="mr-2" />
-                File Uploaded Successfully
-              </p>
-            </div>
-          ): <div className="mt-4 p-3 bg-red-100/80 border border-red-300/50 rounded-lg">
-              <p className="text-red-700 flex items-center">
-                <TbFlagCancel className="mr-2" />
-                Error Uploading the file
-              </p>
-            </div> }
+          <UploadStatusComponent status={uploadStatus?.ok} message={uploadStatus?.message} />
         </div>
-
-        {/* Chat Interface */}
+                {/* Chat Interface */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-blue-200/30 shadow-lg overflow-hidden">
           <div className="p-6 border-b border-blue-200/30">
             <h2 className="text-xl font-semibold text-gray-800 flex items-center">
@@ -411,24 +388,23 @@ function Interview() {
               <button
                 onClick={isRecording ? stopRecording : startRecording}
                 disabled={!currentSessionId}
-                className={`group p-3 rounded-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
-                  isRecording 
+                className={`group p-3 rounded-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${isRecording 
                     ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg shadow-red-500/25' 
                     : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:shadow-lg hover:shadow-blue-500/25'
                 }`}
-              >
+              />
                 {isRecording ? (
                   <FaStop className="animate-pulse" />
                 ) : (
                   <FaMicrophone className="group-hover:scale-110 transition-transform duration-200" />
                 )}
-              </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+
 
 export default Interview;
