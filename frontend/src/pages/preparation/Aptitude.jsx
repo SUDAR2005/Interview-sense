@@ -1,11 +1,24 @@
-import React from "react";
-
+import React, {useRef, useEffect, useState} from "react";
+import AptitudePrepationDisplay from "../../components/AptitudePreparationDisplay"
+import LoadingSpinner from "../../components/LoadingSpinner";
 function Aptitude(){
+    const [topic, setTopic] = useState("default");
+    // const [display, setDisplay] = useState(false)
+    let reference = useRef(null)
+    function handleChange(){
+        if(ref){
+            setTopic(reference.current.value)
+            console.log(reference.current.value)
+        }
+        
+    }
     return(
         <>
-            <div className="flex align-middle text-center justify-center mt-8">
-
-                <select name="topic" id="topic" className="items-center  border-3 border-gray-300 rounded-l-3xl rounded-b-3xl px-2 py-2 shadow-md mb-2">
+            <div className="block align-middle text-center justify-center mt-8 mr-6">
+                <select name="topic" id="topic" 
+                className="items-center  border-3 border-gray-300 rounded-l-3xl rounded-b-3xl px-2 py-2 shadow-md mb-2"
+                ref={reference}
+                onChange={handleChange}>
                     <option value="default">Select a Topic</option>
                     <option value="Simplification ">Simplification </option>
                     <option value="Number Series">Number Series</option>
@@ -22,6 +35,7 @@ function Aptitude(){
                     <option value="Data Sufficiency">Data Sufficiency</option>
                     <option value="Comparison of Quantities">Comparison of Quantities</option>
                 </select>
+                <AptitudePrepationDisplay topic={topic}/>
             </div>
         </>
     )

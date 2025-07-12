@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, Depends
 from services.llm import get_llm, coding_prompt_template
 from langchain_core.prompts import PromptTemplate
 from typing import List
@@ -8,8 +8,8 @@ from models.schemas import CodingQuestion, UploadTitle
 prompt_template = PromptTemplate.from_template(coding_prompt_template)
 
 router = APIRouter()
-@router.post("/generate_code", response_model=List[CodingQuestion])
-async def generate_code_response(topic: UploadTitle):
+@router.get("/generate_code", response_model=List[CodingQuestion])
+async def generate_code_response(topic: UploadTitle = Depends()):
     try:
         llm = get_llm()
         chain = prompt_template | llm

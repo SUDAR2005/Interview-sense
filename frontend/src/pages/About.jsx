@@ -1,6 +1,6 @@
 import React from "react";
 import InterviewProcess from "../components/InterviewProcess";
-
+import LoadingSpinner from "../components/LoadingSpinner";
 function About() {
   return (
     <section className="flex flex-col items-start px-6 py-10 max-w-6xl mx-auto">
@@ -16,7 +16,7 @@ function About() {
             interview experience, Aptitude question generator and Coding Question generator based on topic you desire to learn.
         </div>
       </div>
-
+      {/* <LoadingSpinner/> */}
       {/* Interview Process Title with underline */}
       <div className="mb-6">
         <h2 className="text-3xl font-semibold text-gray-800 relative inline-block after:content-[''] after:block after:w-64 after:h-1 after:bg-gray-600 after:mt-2">

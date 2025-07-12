@@ -1,13 +1,23 @@
-import React from "react";
-
+import React, {useRef, useEffect, useState} from "react";
+import CodingPreparationDisplay from "../../components/CodingPreparationDisplay";
 function Code(){
+    let reference = useRef(null)
+    const [topic, setTopic] = useState("default");
+    function handleChange(){
+        if(reference && reference.current.value !== "default"){
+            setTopic(reference.current.value)
+            console.log(reference.current.value)
+        }    
+        }
     return(
         <>
             {/* <h1 className="text-center text-3xl p-4">Code</h1> */}
             <div className="flex align-middle text-center justify-center mt-8">
                 <select
                     id="codingConcept"
-                    className="items-center  border-3 border-gray-300 rounded-l-3xl rounded-b-3xl px-2 py-2 shadow-md mb-2">
+                    className="items-center  border-3 border-gray-300 rounded-l-3xl rounded-b-3xl px-2 py-2 shadow-md mb-2"
+                    ref={reference}
+                    onChange={handleChange}>
                     <option value="default">Select a Concept</option>
                     <optgroup label="Coding Strategies">
                         <option value="Brute Force">Brute Force</option>
@@ -51,7 +61,7 @@ function Code(){
                     </optgroup>
                 </select>
             </div>
-
+            <CodingPreparationDisplay topic={topic}/>
         </>
     )
 }
