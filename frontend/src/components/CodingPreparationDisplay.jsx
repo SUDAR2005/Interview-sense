@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LoadingSpinner from "./LoadingSpinner.jsx";
-import { FaLeaf, FaCode, FaPlay, FaLightbulb, FaTerminal } from "react-icons/fa";
+import { FaLeaf, FaCode, FaPlay, FaLightbulb, FaTerminal, FaExclamationTriangle } from "react-icons/fa";
 
 function CodingPreparationDisplay({ topic }) {
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,9 @@ function CodingPreparationDisplay({ topic }) {
     return (
       <div className="flex flex-col items-center justify-center py-16 px-4">
         <div className="text-center">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+            <div className="flex justify-center mb-4">
+              <FaExclamationTriangle className="text-red-500 text-6xl" />
+            </div>
           <h3 className="text-xl font-semibold text-red-700 mb-2">
             Error Loading Problems
           </h3>

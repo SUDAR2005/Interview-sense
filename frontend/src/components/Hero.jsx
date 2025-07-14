@@ -1,6 +1,6 @@
 import React from 'react';
 import Typewriter from 'typewriter-effect';
-
+import SearchBox from './SearchBox';
 function Hero() {
     return (
         <>
@@ -19,21 +19,9 @@ function Hero() {
                         }}
                     />
                 </div>
+            
             </div>
-
-            {/* Search Box */}
-            <div className='flex justify-center mt-10'>
-                <div className='search-company flex items-center w-full max-w-xl border-3 border-gray-300 rounded-l-3xl rounded-b-3xl px-4 py-2 shadow-md'>
-                    <input
-                        type="text"
-                        className="flex-grow px-4 py-2 focus:outline-none text-lg"
-                        placeholder="Search with us..."
-                    />
-                    <button className= "search  bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-full font-semibold transition duration-300">
-                        Search
-                    </button>
-                </div>
-            </div>
+            <SearchBox/>
         </>
     );
 }
