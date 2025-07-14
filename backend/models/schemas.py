@@ -45,3 +45,10 @@ class CodingQuestion(BaseModel):
     samples: List[Sample]
     explanation: str
     
+class SignUpModel(BaseModel):
+    regNo: str
+    name: str
+    department: str
+    year: str
+
+    

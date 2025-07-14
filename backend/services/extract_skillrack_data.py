@@ -29,13 +29,13 @@ def get_student_data(url, year):
         year_match = re.search(r'(\d{4})', year_text)
         year_of_passing = year_match.group(1) if year_match else 'Not Found'
 
+        result["regNo"] = reg_no
         result["name"] = name
-        result["regno"] = reg_no
-        result["Department"] = department
-        result["Year of Passing"] = year_of_passing
+        result["department"] = department
+        result["year"] = year_of_passing
         return result
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
-if __name__ =="__main__":
-    print(get_student_data("https://www.skillrack.com/faces/resume.xhtml?id=467065&key=60b18505f10c543125f8eca3ad204bb6c92722b0", "2026"))
+# if __name__ =="__main__":
+#     print(get_student_data("https://www.skillrack.com/faces/resume.xhtml?id=465&key=60b", "2026"))

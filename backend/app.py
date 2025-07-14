@@ -8,7 +8,7 @@ from routers.voice import router as voice_router
 from routers.utils import router as utils_router
 from routers.aptitude import router as aptitude_router
 from routers.coding import router as coding_router
-
+from routers.signup import router as signup_router
 # Load environment variables
 load_dotenv()
 
@@ -35,6 +35,7 @@ app.include_router(voice_router)
 app.include_router(utils_router)
 app.include_router(aptitude_router)
 app.include_router(coding_router)
+app.include_router(signup_router)
 
 @app.get("/")
 async def root():
@@ -46,4 +47,8 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+    try:
+        uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+    except Exception as e:
+        # import traceback
+        print(str(e))
