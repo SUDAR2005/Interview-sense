@@ -37,5 +37,5 @@ def get_student_data(url, year):
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
-# if __name__ =="__main__":
-#     print(get_student_data("url"))
+if __name__ =="__main__":
+    print(get_student_data("https://www.skillrack.com/faces/resume.xhtml?id=467065&key=60b18505f10c543125f8eca3ad204bb6c92722b0", "2026"))
