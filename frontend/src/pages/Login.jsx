@@ -1,16 +1,16 @@
 import React, {useState} from "react";
 import { useAuth } from "../context/AuthContext";
-
+import { useNavigate } from "react-router-dom";
 function Login() {
     const { setIsLoggedIn } = useAuth();
     const [regNo, setRegNo] = useState("");
     const [password, setPassword] = useState("");
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // ✅ Do real login here
-    setIsLoggedIn(true);
-  };
+    const navigate = useNavigate();
+    const handleLogin = (e) => {
+        e.preventDefault();
+        setIsLoggedIn(true);
+        navigate('/home')
+    };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">

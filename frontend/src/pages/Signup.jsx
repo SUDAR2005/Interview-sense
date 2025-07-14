@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function Signup() {
     const [url, setURL] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-
-    const handleLogin = (e) => {
+    const navigate = useNavigate()
+    const handleSignUp = (e) => {
         e.preventDefault();
         console.log("Siging in with:",url);
         console.log("Password:",password);
+        navigate('/');
     };
 
   return (
@@ -17,7 +18,7 @@ export default function Signup() {
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Sign up to <span className="text-[#147fdc] hover:text-[#7883ff]">InterviewSense</span>
         </h2>
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleSignUp} className="space-y-4">
           <div>
             <label className="block mb-1 text-gray-700">Skillrack URL</label>
             <input
