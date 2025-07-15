@@ -50,5 +50,10 @@ class SignUpModel(BaseModel):
     name: str
     department: str
     year: str
+    
+
+class LoginModel(BaseModel):
+    regno: str
+    password: str
 
     

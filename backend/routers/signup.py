@@ -4,7 +4,7 @@ from services import extract_skillrack_data
 from database.db import users_collection
 import hashlib
 
-# uri = 'http://www.skillrack.com/profile/467065/60b18505f10c543125f8eca3ad204bb6c92722b0'
+# uri = 'http://www.skillrack.com/profile/467065/60b18505f10c543125f8eca3ad204bb6c920'
 
 router = APIRouter()
 
