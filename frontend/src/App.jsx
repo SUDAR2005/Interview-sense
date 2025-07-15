@@ -15,7 +15,7 @@ function App() {
   const location = useLocation();
   const { isLoggedIn } = useAuth(); 
 
-  const showLayoutRoutes = ["/home", "/about", "/preparation/", "/preparation/Coding", "/preparation/Interview"];
+  const showLayoutRoutes = ["/home", "/about", "/preparation/", "/preparation/Coding", "/preparation/Interview", "/preparation", "/profile"];
   const showLayout = showLayoutRoutes.includes(location.pathname);
 
   return (

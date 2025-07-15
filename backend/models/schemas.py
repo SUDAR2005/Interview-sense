@@ -45,7 +45,7 @@ class CodingQuestion(BaseModel):
     samples: List[Sample]
     explanation: str
     
-class SignUpModel(BaseModel):
+class UserModel(BaseModel):
     regNo: str
     name: str
     department: str
@@ -54,6 +54,10 @@ class SignUpModel(BaseModel):
 
 class LoginModel(BaseModel):
     regno: str
+    password: str
+    
+class signUpReq(BaseModel):
+    url: str
     password: str
 
     

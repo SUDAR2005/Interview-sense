@@ -49,19 +49,29 @@ export default function Signup() {
 
     try {
       const response = await fetch(BASE_URL, {
+
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({ regno, password }),
+        body: JSON.stringify({
+          url,
+          password
+        })
+        
       });
 
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.detail || "Request failed");
+        const errorText = await response.text();
+        try {
+          const error = JSON.parse(errorText);
+          throw new Error(error.detail || "Request failed");
+        } catch {
+          throw new Error("Unexpected response format");
+        }
       }
+
       setErrorStatus(false)
       const data = await response.json();
       console.log("Response Data:", data);

@@ -109,7 +109,7 @@ function Interview() {
 
   const sendMessage = async (messageText, sessionId) => {
     try {
-      const response = await fetch(`/chat`, {
+      const response = await fetch(`${API_BASE_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: messageText, session_id: sessionId })

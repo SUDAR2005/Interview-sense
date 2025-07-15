@@ -28,7 +28,7 @@ def get_student_data(url, year):
         department = column.find('div', class_='ui large label').text.strip()
         year_match = re.search(r'(\d{4})', year_text)
         year_of_passing = year_match.group(1) if year_match else 'Not Found'
-
+        
         result["regNo"] = reg_no
         result["name"] = name
         result["department"] = department

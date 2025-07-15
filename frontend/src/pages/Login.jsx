@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { GlobalDataContext } from "../context/GlobalContext";
+import { useContext } from "react";
 
 function Login() {
+  // context to avoid drilling down state
   const { setIsLoggedIn } = useAuth();
+  const { setData } = useContext(GlobalDataContext);
   const [regNo, setRegNo] = useState("");
   const [password, setPassword] = useState("");
   const [isPassCrt, setPassCrt] = useState(null);
@@ -44,6 +48,13 @@ function Login() {
       console.log("Response Data:", data);
       setErrorStatus(false);
       setIsLoggedIn(true);
+      setData({
+      _id: data._id,
+      regno: data.regno,
+      name: data.name,
+      department: data.department,
+      year: data.year
+    });
       navigate("/home");
     } catch (err) {
       setErrorStatus(true);
