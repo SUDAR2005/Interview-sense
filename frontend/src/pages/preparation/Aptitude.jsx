@@ -16,7 +16,7 @@ function Aptitude(){
         <>
             <div className="block align-middle text-center justify-center mt-8 mr-6">
                 <select name="topic" id="topic" 
-                className="w-100 items-center  border-3 border-gray-300 rounded-l-3xl rounded-b-3xl px-2 py-2 shadow-md mb-2"
+                className="w-100 items-center  border-3 border-gray-300 rounded-l-3xl rounded-b-3xl px-2 py-2 shadow-md mb-2 overflow-y-auto"
                 ref={reference}
                 onChange={handleChange}>
                     <option value="default">Select a Topic</option>

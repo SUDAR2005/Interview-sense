@@ -48,16 +48,15 @@ export default function Signup() {
     }
 
     try {
-      const response = await fetch(
-        `${BASE_URL}?url=${encodeURIComponent(url)}&password=${encodeURIComponent(password)}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
+      const response = await fetch(BASE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ regno, password }),
+      });
+
 
       if (!response.ok) {
         const error = await response.json();

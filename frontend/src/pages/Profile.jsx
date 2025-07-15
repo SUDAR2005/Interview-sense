@@ -1,16 +1,19 @@
 import React from "react";
 import ProfileComponent from "../components/ProfileComponent";
 import { FaUserCircle } from "react-icons/fa";
+
 function Profile() {
-    {/* Need to add backedn logic to get content */}
     const profileData = {
-        name: "SUDAR MANIKANDAN S",
-        regNo: "917722IT111",
+        name: "User",
+        regNo: "917722ITXYZ",
         department: "IT",
         profileImage: "profile.jpg"
     };
 
-    return <ProfileComponent {...profileData} />;
+    return <>
+        <ProfileComponent {...profileData} />;
+
+    </>
 }
 
 export default Profile;

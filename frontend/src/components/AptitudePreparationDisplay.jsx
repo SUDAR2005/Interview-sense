@@ -48,7 +48,7 @@ function AptitudePreparationDisplay({ topic }) {
       <div className="flex flex-col items-center justify-center py-16 px-4">
         <div className="text-center">
           <div className="flex justify-center mb-4">
-            <FaExclamationTriangle className="text-red-500 text-6xl" />
+            <FaBrain className="text-red-500 text-6xl" />
           </div>
           <h3 className="text-xl font-semibold text-red-700 mb-2">
             Error Loading Problems
@@ -87,7 +87,7 @@ function AptitudePreparationDisplay({ topic }) {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="p-3 bg-green-100 rounded-full">
-              <FaLeaf className="text-2xl text-green-600" />
+              <FaBrain className="text-2xl text-green-600" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
               {topic} Problems
@@ -188,7 +188,7 @@ function AptitudePreparationDisplay({ topic }) {
         {data && data.length > 0 && (
           <div className="mt-8 text-center p-6 bg-white rounded-xl shadow-md">
             <p className="text-gray-600">
-              Completed {data.length} problem{data.length !== 1 ? 's' : ''} • 
+              • 
               <span className="text-blue-600 font-medium ml-1">
                 Keep practicing to improve your skills!
               </span>

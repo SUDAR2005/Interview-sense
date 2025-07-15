@@ -46,7 +46,7 @@ function CodingPreparationDisplay({ topic }) {
       <div className="flex flex-col items-center justify-center py-16 px-4">
         <div className="text-center">
             <div className="flex justify-center mb-4">
-              <FaExclamationTriangle className="text-red-500 text-6xl" />
+              <FaCode className="text-red-500 text-6xl" />
             </div>
           <h3 className="text-xl font-semibold text-red-700 mb-2">
             Error Loading Problems
@@ -85,7 +85,7 @@ function CodingPreparationDisplay({ topic }) {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="p-3 bg-green-100 rounded-full">
-              <FaLeaf className="text-2xl text-green-600" />
+              <FaCode className="text-2xl text-green-600" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
               {topic} Problems
