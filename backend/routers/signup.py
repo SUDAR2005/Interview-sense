@@ -11,7 +11,7 @@ router = APIRouter()
 def hash_password(password: str) -> str:
     return hashlib.sha256(password.encode()).hexdigest()
 
-@router.get('/signup', response_model=SignUpModel)
+@router.post('/signup', response_model=SignUpModel)
 async def signup(url: str, password: str):
     data = extract_skillrack_data.get_student_data(url=url, year='2026')
 
@@ -28,9 +28,7 @@ async def signup(url: str, password: str):
         existing = users_collection.find_one({"regNo": data["regNo"]})
         if existing:
             raise HTTPException(status_code=409, detail="User already registered")
-
         users_collection.insert_one(user_document)
-
         return SignUpModel(**data)
     else:
         raise HTTPException(

@@ -51,7 +51,7 @@ export default function Signup() {
       const response = await fetch(
         `${BASE_URL}?url=${encodeURIComponent(url)}&password=${encodeURIComponent(password)}`,
         {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",

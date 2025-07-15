@@ -5,12 +5,60 @@ function Login() {
     const { setIsLoggedIn } = useAuth();
     const [regNo, setRegNo] = useState("");
     const [password, setPassword] = useState("");
+    const [isPassCrt, setPassCrt] = useState(null);
+    const [isErr,  setErrorStatus] = useState(false);
+    const [errMsg, setErrorMsg] = useState("");
+    
+
     const navigate = useNavigate();
-    const handleLogin = (e) => {
-        e.preventDefault();
-        setIsLoggedIn(true);
-        navigate('/home')
-    };
+    // password regex
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,20}$/;
+    
+    const BASE_URL = 'http://127.0.0.1:8000/login'
+    // login handle
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const isPasswordValid = handlePassword();
+
+    if (!isPasswordValid) {
+      console.warn("Validation failed");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `${BASE_URL}?regno=${encodeURIComponent(regNo)}&password=${encodeURIComponent(password)}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || "Request failed");
+      }
+      setErrorStatus(false)
+      const data = await response.json();
+      console.log("Response Data:", data);
+      setIsLoggedIn(true);
+      navigate("/home");
+    } catch (err) {
+      setErrorStatus(true);
+      setErrorMsg(err.message);
+      console.error("Fetch Error:", err.message);
+    }
+  };
+    // check password
+    const handlePassword = () => {
+    const isValid = passwordRegex.test(password);
+    setPassCrt(isValid);
+    return isValid;
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
