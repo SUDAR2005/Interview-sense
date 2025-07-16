@@ -3,13 +3,11 @@ from models.schemas import UserModel, signUpReq
 from services import extract_skillrack_data
 from database.db import users_collection
 import hashlib
+from services.utils import hash_password
 
 # uri = 'http://www.skillrack.com/profile/467065/60b18505f10c543125f8eca3ad204bb6c920'
 
 router = APIRouter()
-
-def hash_password(password: str) -> str:
-    return hashlib.sha256(password.encode()).hexdigest()
 
 @router.post('/signup', response_model=UserModel)
 async def signup(load: signUpReq):

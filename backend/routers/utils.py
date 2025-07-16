@@ -5,8 +5,14 @@ from services.llm import get_llm
 from services.embeddings import get_embedding_model
 from datetime import datetime
 from data_store import sessions
+import hashlib
 
 router = APIRouter()
+
+
+
+def hash_password(password: str) -> str:
+    return hashlib.sha256(password.encode()).hexdigest()
 
 @router.get("/health")
 async def health_check():

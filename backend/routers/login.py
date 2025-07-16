@@ -2,11 +2,12 @@ from fastapi import APIRouter, HTTPException
 import hashlib
 from database.db import users_collection
 from models.schemas import LoginModel, UserModel
-
+from services.utils import hash_password
 router = APIRouter()
 
-def hash_password(password: str) -> str:
-    return hashlib.sha256(password.encode()).hexdigest()
+'''Moved to Utils'''
+# def hash_password(password: str) -> str:
+#     return hashlib.sha256(password.encode()).hexdigest()
 
 @router.post('/login')
 async def login(data: LoginModel):
