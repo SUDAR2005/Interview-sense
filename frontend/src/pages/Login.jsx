@@ -49,11 +49,11 @@ function Login() {
       setErrorStatus(false);
       setIsLoggedIn(true);
       setData({
-      _id: data._id,
-      regno: data.regno,
-      name: data.name,
-      department: data.department,
-      year: data.year
+      _id: data.user._id,
+      regno: data.user.regno,
+      name: data.user.name,
+      department: data.user.department,
+      year: data.user.year
     });
       navigate("/home");
     } catch (err) {
