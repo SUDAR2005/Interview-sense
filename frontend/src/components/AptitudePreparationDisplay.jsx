@@ -11,7 +11,7 @@ function AptitudePreparationDisplay({ topic }) {
 
   useEffect(() => {
     // If no topic or it's still "default", do nothing:
-    if (!topic || topic === "default") {
+    if (!topic || topic === "default" || sessionStorage.getItem('apti') <= 0) {
       setData(null);
       setError(null);
       return;
@@ -38,6 +38,29 @@ function AptitudePreparationDisplay({ topic }) {
         setLoading(false);
       });
   }, [topic]);
+    
+    // fetch("http://127.0.0.1:8000/update",{
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       regNo: sessionStorage.getItem("regNo"),
+    //       last_login: sessionStorage.getItem("last_login"),
+    //       apti: sessionStorage.getItem('apti'),
+    //       coding: sessionStorage.getItem('coding'),
+    //       chat_duration: sessionStorage.getItem('chat_duration'),
+    //     })
+    //   }
+    // ).then(res=>{
+    //   if (!res.ok) {
+    //       throw new Error(`HTTP error! status: ${res.status}`);
+    //     }
+    //     return res.json(); 
+    //   })
+    //   .then((json) => {
+    //     console.log(json)
+    //   })
 
   if (loading) {
     return <LoadingSpinner />;
@@ -62,6 +85,8 @@ function AptitudePreparationDisplay({ topic }) {
         </div>
       </div>
     );
+
+
   }
 
   if (!data) {

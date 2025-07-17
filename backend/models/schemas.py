@@ -2,7 +2,6 @@
 from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
-
 class ChatMessage(BaseModel):
     message: str
     session_id: Optional[str] = None
@@ -50,6 +49,10 @@ class UserModel(BaseModel):
     name: str
     department: str
     year: str
+    last_login: Optional[datetime] = None
+    apti: Optional[int] = 0
+    coding: Optional[int] = 0
+    chat_durtion: Optional[int] = None
     
 
 class LoginModel(BaseModel):
@@ -59,5 +62,12 @@ class LoginModel(BaseModel):
 class signUpReq(BaseModel):
     url: str
     password: str
+    
+class UpdateModel(BaseModel):
+    regNo:str
+    last_login: Optional[str] = None
+    apti: Optional[str] = None
+    coding: Optional[str] = None
+    chat_duration: Optional[datetime] = None
 
     

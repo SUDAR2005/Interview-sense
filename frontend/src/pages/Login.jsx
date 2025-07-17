@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { GlobalDataContext } from "../context/GlobalContext";
 import { useContext } from "react";
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
-  // context to avoid drilling down state
   const { setIsLoggedIn } = useAuth();
   const { setData } = useContext(GlobalDataContext);
   const [regNo, setRegNo] = useState("");
@@ -21,6 +21,19 @@ function Login() {
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,20}$/;
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("access_token");
+    const user = sessionStorage.getItem("user");
+  
+    if (token && user) {
+      const decoded = jwtDecode(token);
+      console.log("Token Expires in", decoded.exp);
+      setIsLoggedIn(true);
+      setData(JSON.parse(user));
+      navigate("/home");
+    }
+  }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -28,7 +41,6 @@ function Login() {
     if (!isPasswordValid) {
       return;
     }
-
     setIsLoading(true);
     try {
       const response = await fetch(BASE_URL, {
@@ -45,16 +57,16 @@ function Login() {
       }
 
       const data = await response.json();
-      console.log("Response Data:", data);
+      // console.log("Response Data:", data);
+
+      sessionStorage.setItem("access_token", data.access_token);
+      // console.log(data.access_token);
+      sessionStorage.setItem("refresh_token", data.refresh_token);
+      sessionStorage.setItem("user", JSON.stringify(data.user));
+
       setErrorStatus(false);
       setIsLoggedIn(true);
-      setData({
-      _id: data.user._id,
-      regno: data.user.regno,
-      name: data.user.name,
-      department: data.user.department,
-      year: data.user.year
-    });
+      setData(data.user);
       navigate("/home");
     } catch (err) {
       setErrorStatus(true);
@@ -96,10 +108,7 @@ function Login() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
         <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
-            Login to{" "}
-            <span className="text-[#147fdc] hover:text-[#7883ff]">
-              InterviewSense
-            </span>
+            Login to <span className="text-[#147fdc] hover:text-[#7883ff]">InterviewSense</span>
           </h2>
 
           <form onSubmit={handleLogin} className="space-y-4">
@@ -145,7 +154,7 @@ function Login() {
           </form>
 
           <p className="text-center text-sm text-gray-600 mt-4">
-            Don't have an account?{" "}
+            Don't have an account? {" "}
             <a href="/signup" className="text-blue-600 hover:underline">
               Sign up
             </a>

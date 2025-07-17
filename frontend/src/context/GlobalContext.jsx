@@ -8,7 +8,11 @@ export const GlobalProvider = ({ children }) => {
         regno: '',
         name: '',
         department: '',
-        year: ''
+        year: '',
+        last_logged_in: '',
+        apti: '',
+        coding: '',
+        chat_durtion: ''
     });
 
     return (

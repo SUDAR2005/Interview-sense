@@ -9,7 +9,7 @@ function CodingPreparationDisplay({ topic }) {
 
   useEffect(() => {
     // If no topic or it's still "default", do nothing:
-    if (!topic || topic === "default") {
+    if (!topic || topic === "default" || sessionStorage.getItem('coding') <= 0) {
       setData(null);
       setError(null);
       return;

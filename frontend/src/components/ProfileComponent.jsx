@@ -9,6 +9,7 @@ function ProfileComponent() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
+    sessionStorage.removeItem("access_token");
     setIsLoggedIn(false);
     navigate('/');
   };
@@ -22,16 +23,30 @@ function ProfileComponent() {
           className="w-32 h-32 rounded-full mx-auto mb-4 object-cover shadow"
         />
         <h1 className="text-2xl font-bold text-gray-800 mb-2">{data.name}</h1>
-        <p className="text-gray-600 mb-1">
+        <div className="justify-between">
+          <div className="text-gray-600 mb-1 justify-around">
           <span className="font-semibold">Reg No:</span> {data.regno}
-        </p>
-        <p className="text-gray-600">
-          <span className="font-semibold">Department:</span> {data.department}
-        </p>
-        <p className="text-gray-600">
-          <span className="font-semibold">Year:</span> {data.year}
-        </p>
-
+          </div>
+          <div className="text-gray-600">
+            <span className="font-semibold">Department:</span> {data.department}
+          </div>
+          <div className="text-gray-600">
+            <span className="font-semibold">Year:</span> {data.year}
+          </div>
+          <div className="text-gray-600">
+            <span className="font-semibold">Last Logged in:</span> {data.last_login}
+          </div>
+          <div className="text-gray-600">
+            <span className="font-semibold">Aptitude Used:</span> {data.apti} / 1
+          </div>
+          <div className="text-gray-600">
+            <span className="font-semibold">Coding Used:</span> {data.coding} / 1
+          </div>
+          <div className="text-gray-600">
+            <span className="font-semibold">Time Spend in Chat:</span> {data.chat_durtion}
+          </div>
+        </div>
+        
         <div className="mt-5">
           <button
             onClick={handleSubmit}

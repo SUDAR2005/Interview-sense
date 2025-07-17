@@ -10,6 +10,7 @@ from routers.aptitude import router as aptitude_router
 from routers.coding import router as coding_router
 from routers.signup import router as signup_router
 from routers.login import router as login_router
+from routers.update import router as update_router
 # Load environment variables
 load_dotenv()
 
@@ -38,6 +39,7 @@ app.include_router(aptitude_router)
 app.include_router(coding_router)
 app.include_router(signup_router)
 app.include_router(login_router)
+app.include_router(update_router)
 
 @app.get("/")
 async def root():

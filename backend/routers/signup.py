@@ -19,7 +19,11 @@ async def signup(load: signUpReq):
             "name": data["name"],
             "department": data["department"],
             "year": data["year"],
-            "password": hash_password(load.password)
+            "password": hash_password(load.password),
+            "last_logged_in": None,
+            "apti": 0,
+            "coding": 0,
+            "chat_durtion": 0
         }
 
         # Insert into MongoDB
