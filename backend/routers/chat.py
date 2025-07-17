@@ -1,5 +1,4 @@
 # routers/chat.py
-
 from fastapi import APIRouter, HTTPException
 from models.schemas import ChatMessage, ChatResponse
 from data_store import sessions, vector_stores
@@ -7,12 +6,15 @@ from services.llm import get_llm, hr_prompt_template
 from services.rag import build_rag_chain, format_chat_history
 from datetime import datetime
 
+import os
+import shutil
+from fastapi import Query
+
 router = APIRouter()
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat(chat_message: ChatMessage):
     session_id = chat_message.session_id
-
     if not session_id:
         raise HTTPException(status_code=400, detail="Session ID is required")
 
@@ -50,3 +52,20 @@ async def chat(chat_message: ChatMessage):
         session_id=session_id,
         timestamp=datetime.now()
     )
+
+@router.post("/end-session")
+async def end_session(session_id: str = Query(...)):
+    # Clean up session and vector store
+    if session_id in sessions:
+        del sessions[session_id]
+    print(vector_stores[session_id])
+    if session_id in vector_stores:
+        del vector_stores[session_id]
+
+    # Delete the persistent directory
+    db_directory = f"./chroma_db_{session_id}"
+    if os.path.exists(db_directory):
+        shutil.rmtree(db_directory)
+
+    return {"message": f"Session {session_id} ended and data deleted."}
+

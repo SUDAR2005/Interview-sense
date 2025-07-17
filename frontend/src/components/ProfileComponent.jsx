@@ -8,8 +8,16 @@ function ProfileComponent() {
   const { data } = useContext(GlobalDataContext);
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    const session_id = sessionStorage.getItem("access_token");
     sessionStorage.removeItem("access_token");
+    try {
+    await fetch(`http://localhost:8000/end-session?session_id=${sessionId}`, {
+      method: "POST",
+    });
+  } catch (error) {
+    console.error("Failed to end session:", error);
+  }
     setIsLoggedIn(false);
     navigate('/');
   };

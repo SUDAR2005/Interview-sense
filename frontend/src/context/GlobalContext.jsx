@@ -5,14 +5,14 @@ export const GlobalDataContext = createContext();
 export const GlobalProvider = ({ children }) => {
     const [data, setData] = useState({
         _id: '',
-        regno: '',
+        regNo: '',
         name: '',
         department: '',
         year: '',
-        last_logged_in: '',
-        apti: '',
-        coding: '',
-        chat_durtion: ''
+        last_login: 0,
+        apti: 0,
+        coding: 0,
+        chat_durtion: 0
     });
 
     return (

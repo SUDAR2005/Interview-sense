@@ -38,4 +38,5 @@ def generate_data_store(path: str, session_id: str):
     embedding = get_embedding_model()
     db_directory = f"./chroma_db_{session_id}"
     db = store_vectordb(embedding, chunks, db_directory)
+    db.persist()
     return db, len(chunks)

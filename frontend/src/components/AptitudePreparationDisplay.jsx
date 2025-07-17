@@ -1,17 +1,79 @@
 import React, { useState, useEffect } from "react";
 import { FaLeaf, FaCheckCircle, FaLightbulb, FaCode, FaBrain, FaExclamationTriangle } from "react-icons/fa";
 import LoadingSpinner from "./LoadingSpinner.jsx";
-
-
+import { GlobalDataContext } from "../context/GlobalContext.jsx";
 
 function AptitudePreparationDisplay({ topic }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
+  const handleUpdate = () => {
+    // Parse the user data from sessionStorage
+    const userData = JSON.parse(sessionStorage.getItem('user'));
+    
+    // Debug: Log what's in sessionStorage
+    console.log("SessionStorage values:", {
+      regNo: userData.regno,
+      last_login: userData.last_login,
+      apti: parseInt(userData.apti) + 1,
+      coding: parseInt(userData.coding),
+      chat_duration: parseInt(userData.chat_durtion), // Note: typo in original data - "chat_durtion"
+    });
+
+    const payload = {
+      _id: userData._id,
+      department: userData.department,
+      name: userData.name,
+      year: userData.year,
+      regNo: userData.regno,
+      last_login: userData.last_login,
+      apti: parseInt(userData.apti) + 1,
+      coding: parseInt(userData.coding),
+      chat_duration: parseInt(userData.chat_durtion), // Note: typo in original data
+    };
+
+    // Debug: Log the payload being sent
+    console.log("Payload being sent:", payload);
+
+    fetch("http://127.0.0.1:8000/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(res => {
+      console.log("Response status:", res.status);
+      if (!res.ok) {
+        return res.text().then(text => {
+          console.log("Error response body:", text);
+          throw new Error(`HTTP error! status: ${res.status}, body: ${text}`);
+        });
+      }
+      return res.json(); 
+    })
+    .then((json) => {
+      console.log("Success response:", json);
+      const updatedUserData = {
+        ...userData,
+        apti: parseInt(userData.apti) + 1
+      };
+      setData(updatedUserData);
+      sessionStorage.setItem('user', JSON.stringify(updatedUserData));
+    })
+    .catch((error) => {
+      console.error("API error:", error);
+      setError(error.message);
+      setLoading(false);
+    });
+  }
   useEffect(() => {
+    if(parseInt(JSON.parse(sessionStorage.getItem('user')).apti) >= 1){
+      setError("You have reached your limit. Try after 24 hours");
+    }
     // If no topic or it's still "default", do nothing:
-    if (!topic || topic === "default" || sessionStorage.getItem('apti') <= 0) {
+    if (!topic || topic === "default" || parseInt(JSON.parse(sessionStorage.getItem('user')).apti || 0) > 1)  {
       setData(null);
       setError(null);
       return;
@@ -31,36 +93,14 @@ function AptitudePreparationDisplay({ topic }) {
       .then((json) => {
         setData(json);  
         setLoading(false);
+        handleUpdate()
       })
       .catch((error) => {
         console.error("API error:", error);
         setError(error.message);
         setLoading(false);
       });
-  }, [topic]);
-    
-    // fetch("http://127.0.0.1:8000/update",{
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       regNo: sessionStorage.getItem("regNo"),
-    //       last_login: sessionStorage.getItem("last_login"),
-    //       apti: sessionStorage.getItem('apti'),
-    //       coding: sessionStorage.getItem('coding'),
-    //       chat_duration: sessionStorage.getItem('chat_duration'),
-    //     })
-    //   }
-    // ).then(res=>{
-    //   if (!res.ok) {
-    //       throw new Error(`HTTP error! status: ${res.status}`);
-    //     }
-    //     return res.json(); 
-    //   })
-    //   .then((json) => {
-    //     console.log(json)
-    //   })
+  },[topic]);
 
   if (loading) {
     return <LoadingSpinner />;

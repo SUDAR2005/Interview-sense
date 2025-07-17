@@ -66,8 +66,8 @@ class signUpReq(BaseModel):
 class UpdateModel(BaseModel):
     regNo:str
     last_login: Optional[str] = None
-    apti: Optional[str] = None
-    coding: Optional[str] = None
+    apti: Optional[int] = None
+    coding: Optional[int] = None
     chat_duration: Optional[datetime] = None
 
     

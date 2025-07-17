@@ -63,7 +63,7 @@ function Login() {
       // console.log(data.access_token);
       sessionStorage.setItem("refresh_token", data.refresh_token);
       sessionStorage.setItem("user", JSON.stringify(data.user));
-
+      console.log(sessionStorage.getItem('user'));
       setErrorStatus(false);
       setIsLoggedIn(true);
       setData(data.user);
